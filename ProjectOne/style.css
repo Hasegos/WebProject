@@ -1,0 +1,82 @@
+:root {
+    /* 기본적인 색상값 정하기*/
+    --primaryColor: green;
+    --errorColor: orange;
+}
+html {    
+    box-sizing: border-box;
+    background-color: var(--primaryColor);
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: white;
+}
+
+#wrapper {
+    width: 430px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 2);
+}
+
+h4 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.inputGroup label {
+    display: block;
+    padding: 12px 0px;   
+}
+
+.inputGroup input {
+    display: block;
+    width: 93%;
+    padding: 12px;
+    border: 2px solid #e2e2e2;
+    font-size: 16px;
+}
+
+.inputGroup input:focus {
+    outline: none; /* 클릭시 테두리 라인 지우기 */
+    border-color: #777;
+}
+
+/* 참인 조건일떄 */
+.inputGroup.valid input {
+    border-color: var(--primaryColor);
+}
+
+/* 거짓일때*/
+.inputGroup.invalid input {
+    border-color: var(--errorColor);
+}
+
+.inputGroup .helperText {
+    display: block;
+    padding-top: 8px;
+}
+
+/* 참인 조건일떄 */
+.helperText.valid input {
+    border-color: var(--primaryColor);
+}
+
+/* 거짓일때*/
+.helperText.invalid input {
+    border-color: var(--errorColor);
+}
+
+.wrapper button {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    height: 50px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color: var(--primaryColor);
+    border: 2px solid var(--primaryColor);
+    color: white;
+    cursor: pointer;
+}
