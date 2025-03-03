@@ -85,7 +85,7 @@ const checkconfirmPassword = (PassWord,confirmPassword ) => {
         return true;
     }
 }
-
+ 
 // 전화번호 형식
 const checkPhone = (input) => {
     const checkPattern = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
@@ -157,5 +157,4 @@ document.querySelectorAll("input").forEach(e => {
                 break;
         }
     })
-
 }); 
