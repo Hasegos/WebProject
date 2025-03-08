@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #2e3e50;
+    background-color: #f0f8ff;
+    animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+    form {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+.calculate {
+    display: block;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 300%;
+    color: #34495e;
+}
+
+.tableGroup {
+    display: inline-block;
+}
+
+input {
+    width: 48vw;
+    background-color: #ffffff;
+    font-size: 3rem;
+    /* 오른쪽에서 왼쪽 방향으로 입력 */
+    direction: ltr;  
+    border: 2px solid #bdc3c7;
+    outline: none;
+    border-radius: 0.5rem;
+}
+table {
+    margin: 0 auto;    
+}
+
+button{
+    background-color: #ecf0f1;
+    width: 12vw; 
+    height: 10vw;
+    font-size: 2rem;
+    color: #2c3e50;
+    border-radius: 0.5rem;
+    transition: box-shadow 0.3s ease, transform 0.2s ease ;
+}
+button:active{
+    /* 기존 크기보다 살짝 작아짐 */
+    transform: scale(0.95); 
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.15);
+}
+
+button:hover{
+    transform: scale(0.95);
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.15);
+}
