@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+*{
+    font-family: "Noto Sans KR", sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 18px;
+    background: #f5f5f5;
+    color: #333;
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    /* 세로축 방향으로 지정  */
+    flex-direction: column; 
+    min-height: 100vh;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+button{
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #004d40;
+    color: white;
+    cursor: pointer;
+    /* 밖의 색상을 0.3초 바꾸게끔 */
+    transition: background-color 0.3s ease;
+}
+
+/* 버튼위로 지나갈 시 */
+button:hover{
+    background-color: #00796d;
+}
+/* 버튼을 눌렀을 시 */
+button:active {
+    transform: scale(0.95);
+}
