@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로아 api키 데이터</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>로아 API키 내용</h1>
+    <div>
+        <input type="text" id="inputCharacter" placeholder="캐릭터 이름">        
+    </div>
+    <div class="ApiGroup" id="ApiGroup">        
+        <button id="imformation">찾기</button>
+        <button id="saveButton">저장하기</button>
+        <button id="saveAPI" onclick="location.href='../apikey/API.html'">API키 저장페이지 이동</button>
+    </div>
+    <h2>캐릭터 정보</h2>
+    <div id="ApiImformation"></div>
+
+    <h2>즐겨 찾기 내용</h2>
+    <div id="characterList" class="characterList">
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
