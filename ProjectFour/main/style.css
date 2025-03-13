@@ -5,6 +5,8 @@
 }
 
 body{
+    background-color: #212121;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,6 +56,12 @@ button:hover{
 
 button:active{
     transform: scale(0.95);
+}
+
+.ApiImformation {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 
 .characterList {
