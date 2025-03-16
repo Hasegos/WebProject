@@ -5,6 +5,8 @@
 }
 
 body {
+    background-color: #212121;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,10 +19,11 @@ h1 {
     margin-bottom: 20px;    
 }
 input {
-    font-size: 20px;
+    font-size: 18px;
     border: 2px solid #333;
     border-radius: 8px;
     margin-bottom: 8px;
+    padding: 8px;
 }
 
 button {

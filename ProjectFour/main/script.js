@@ -9,9 +9,13 @@ const characterList = document.getElementById("characterList"); // 즐겨찾기 
 async function charactersImformation() {
     // 캐릭터 이름
     const repCharacter = inputCharacter.value;   
+
+    
       
     // 해당 안에 내용 초기화
     API.innerHTML = "";
+
+    once = true;
 
     // 입력값이 없을 경우
     if(repCharacter == null || repCharacter == ""){
@@ -38,9 +42,7 @@ async function charactersImformation() {
             }
         });
         // 캐릭터 정보
-        const characterImformation = await characterUrl.json();
-        console.log(characterImformation)
-        
+        const characterImformation = await characterUrl.json();       
         
         // 캐릭터 장비 url
         const characterEquipmentUrl= await fetch(`https://developer-lostark.game.onstove.com/armories/characters/${repCharacter}/equipment`,{
@@ -66,12 +68,7 @@ async function charactersImformation() {
         });
 
         const characterEngraving = await characterEngravingUrl.json();
-        console.log(characterEngraving);
-        
-        
-                       
-        
-        
+        console.log(characterEngraving);       
         
         // 각 오류들 에러 발생
         if(characterUrl.status === 401){
@@ -99,20 +96,21 @@ async function charactersImformation() {
 function searchCharacter(characterImformation, characterEquipment, characterEngraving){   
     // 각인 + 아이템 정보
     const imformationPlusEquipment = document.createElement("div");
+    // 캐릭터 정보
     const divImformation = document.createElement("div");
+    // 캐릭터 아이템 정보
     const divEquipment = document.createElement("div");
-    const divEngraving = document.createElement("div");
-    const br = document.createElement("br");
+    // 캐릭터 각인 정보
+    const divEngraving = document.createElement("div");    
 
     // 아이템 정보 + 각인 정보 묶음
     imformationPlusEquipment.style.marginBottom = "10px"
     if(characterImformation.CharacterName == inputCharacter.value){       
-        
 
         // 캐릭터 자체 정보 공간
         API.appendChild(divImformation);
         // 캐릭터 자체 정보
-        searchCharacterImformation(characterImformation,divImformation,br);               
+        searchCharacterImformation(characterImformation,divImformation);               
         
         // API(캐릭터 정보)에 각인 + 아이템 정보추가
         API.appendChild(imformationPlusEquipment);
@@ -139,10 +137,10 @@ function searchCharacter(characterImformation, characterEquipment, characterEngr
     }    
 }
 
-
 // 캐릭터 자체 정보
-function searchCharacterImformation(characterImformation,divImformation,br){
+function searchCharacterImformation(characterImformation,divImformation){
 
+    const br = document.createElement("br");
 
     // 부모 밑 자식으로 요소 추가가능하게끔 (선택한 요소에 텍스트 삽입하도록)
     // 캐릭터 정보
@@ -158,8 +156,7 @@ function searchCharacterImformation(characterImformation,divImformation,br){
     characterimg.style.backgroundColor = "white" ;        
 
     divImformation.append(CharacterClassName,br.cloneNode(), CharacterName,br.cloneNode(),
-            ItemAvgLevel,br.cloneNode(), ServerName,br.cloneNode(),
-            
+            ItemAvgLevel,br.cloneNode(), ServerName,br.cloneNode(),            
     ); 
     
     divImformation.append(characterimg); 
@@ -175,19 +172,19 @@ function searchCharacterEquipment(divEquipment,characterEquipment){
     divEquipment.style.marginBottom = "20px";
     
     let itemsPerPow = 6;      
-    let rowContainer = null;        
+    let rowContainer = null;    
+  
 
-    characterEquipment.forEach((item, index) => {
+    characterEquipment.forEach((item, index) => {      
 
         // 안보이게 설정
         if(item.Type === "나침반" || item.Type == "부적"){
             return true;
-        }     
+        } 
 
-        
         // 첫번째 6개 이후 7개 출력
         if(index === 0  || index === 6){
-            console.log(index);
+            
             rowContainer = document.createElement("div");
             rowContainer.style.display ="flex";                
             rowContainer.style.flexDirection = "column";
@@ -196,20 +193,80 @@ function searchCharacterEquipment(divEquipment,characterEquipment){
             divEquipment.appendChild(rowContainer);
         }           
 
-        // 아이템 이름            
-        const equipmentName = document.createTextNode(item.Name);            
-
         // 아이템 이미지
         const characterEquipmentImage = new Image();                        
         characterEquipmentImage.src = item.Icon;
-        characterEquipmentImage.style.width = "35px";
-        characterEquipmentImage.style.backgroundColor = "#FFE4C4";
+        characterEquipmentImage.style.width = "40px";
+        characterEquipmentImage.style.height = "45px";
+        characterEquipmentImage.style.borderRadius = "7px";
+        characterEquipmentImage.style.marginRight = "10px";
 
+        // 유물 일경우 
+        if(item.Grade == "유물"){
+            characterEquipmentImage.style.backgroundImage = "linear-gradient(135deg , rgb(72,34,11), rgb(162,64,6))";            
+        }
+        // 고대일 경우
+        else if(item.Grade == "고대"){
+            characterEquipmentImage.style.backgroundImage = "linear-gradient(135deg , rgb(61,35,37), rgb(220,201,153))";
+        }       
+        // 각 이미지 + 내용 합친 공간
         const itemContainer = document.createElement("div");
-        itemContainer.style.display = "flex"; 
+        itemContainer.style.display = "flex";                 
         itemContainer.style.fontSize = "15px";
 
-        itemContainer.append(characterEquipmentImage, equipmentName);            
+
+        // 귀걸이,  목걸이, 반지 일떄 연마효과 추가
+        if(item.Type == "귀걸이" || item.Type == "목걸이" || item.Type =="반지"){
+            const div = document.createElement("div");
+            // JSON 문자열 형태로 다시만들기
+            const tip = JSON.parse(item.Tooltip);              
+            
+            console.log(tip);
+            // 연마효과 가져오기
+            const polishingEffectImformation = tip.Element_005.value.Element_001;           
+            // BR태그 기준으로 짜르기
+            const polishingEffectSplit = polishingEffectImformation.split("<BR>");           
+                        
+
+            // 짜른걸 새로운 배열로 가져오기
+            const  polishingEffect = polishingEffectSplit.map(line => {
+                return line.replace(/<\/img>/, "").trim(); // </img> 태그 제거
+                })
+                .map(line => {
+                return line.replace(/<img[^>]*>/, "").trim(); // <img> 태그 제거 후 순수 텍스트만 반환
+            });                
+            
+            for(let effect of polishingEffect){
+                div.innerHTML += effect + "<br>";
+            }
+            itemContainer.append(characterEquipmentImage,div);      
+        }
+        else if(item.Type == "팔찌"){
+            const div = document.createElement("div");
+            const tip = JSON.parse(item.Tooltip);
+
+            const braceletEffectImformation = tip.Element_004.value.Element_001
+            const braceletEffectSplit = braceletEffectImformation.split("<BR>");
+
+            const braceletEffect = braceletEffectSplit.map(line => {
+                return line.replace(/<\/img>/, "").trim();
+            }).map(line => {
+                return line.replace(/<img[^>]*>/, "").trim();
+            })
+            
+            console.log(braceletEffect);
+
+            for(let effect of braceletEffect){
+                div.innerHTML += effect + "<br>";
+            }
+            div.style.width = "390px";
+            itemContainer.append(characterEquipmentImage, div);
+            itemContainer
+
+        }else{
+            itemContainer.append(characterEquipmentImage, item.Name);            
+        }
+        
         rowContainer.appendChild(itemContainer);
     });
 }
@@ -226,9 +283,8 @@ function searchCharacterEngraving(divEngraving,characterEngraving){
     engraving.className += "engraving";    
     engraving.innerText = "각인";
 
-
-
-    divEngraving.append(engraving);
+    divEngraving.append(engraving);   
+   
     
 
     // 각인 이름 + 유물각인 단계
@@ -237,30 +293,45 @@ function searchCharacterEngraving(divEngraving,characterEngraving){
         divEngravingItem.style.marginBottom = "10px";
         divEngravingItem.style.color = "#FF6000";
 
-        const AbilityStoneLevelspan = createElement("span");
-        AbilityStoneLevelspan.textContent = item.item.AbilityStoneLevel;
+        // 돌 각인 정보
+        const EngravingItemStone = new Image();
+
+        EngravingItemStone.src = "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/pc/profile/img_engrave_icon.png";
+        EngravingItemStone.style.width = "26px";
+        EngravingItemStone.style.height = "26px";
+        EngravingItemStone.style.objectFit = "none";
+        EngravingItemStone.style.objectPosition = "0px 0px" ;
+
+        // 유각 정보
+        const Engraving = new Image();
+
+        Engraving.src = "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/pc/profile/img_engrave_icon.png";
+        Engraving.style.width = "26px";
+        Engraving.style.height = "26px";
+        Engraving.style.objectFit = "none";
+        Engraving.style.objectPosition = "-110px 0px" ;
+       
+        // 어빌리티 스톤 레벨
+        const AbilityStoneLevelspan = document.createElement("span");
+        AbilityStoneLevelspan.textContent = "   Lv. " +item.AbilityStoneLevel;
         AbilityStoneLevelspan.style.color = "#00b5ff";
 
-
-        
+        // X 색상 추가
+        const X = document.createElement("span");
+        X.textContent = " x ";
+        X.style.color = "#e4ba27";
         
 
         console.log(item);
-        // #00b5ff 
-
-        // #e4ba27
+       
         if(item.AbilityStoneLevel == null){
-            divEngravingItem.append(item.Name + "  X " + item.Level + "  Lv. " + );
+            divEngravingItem.append(item.Name , Engraving, X , item.Level);
         }else{
-            divEngravingItem.append(item.Name + "  X " + item.Level + "  Lv. " + item.AbilityStoneLevel);
+            divEngravingItem.append(item.Name , Engraving, X , item.Level , EngravingItemStone, AbilityStoneLevelspan);
         }
         
         divEngraving.append(divEngravingItem);    
     }
-
-    console.log(characterEngraving.Engravings);
-   
-   
     
 
    
@@ -271,15 +342,6 @@ function searchCharacterEngraving(divEngraving,characterEngraving){
     
 
 }
-
-
-
-
-
-
-
-
-
 
 
 // 저장 버튼 클릭시
@@ -320,5 +382,23 @@ function saveImformation(){
     );     
 }
 
-imformation.addEventListener("click",charactersImformation);
+
+//  중복 클릭 방지
+let isProcessing = false;
+
+imformation.addEventListener("click",function (){
+
+    if(isProcessing) return;
+
+    isProcessing = true;
+
+    
+
+    charactersImformation();
+
+    
+    setTimeout(() => {
+        isProcessing = false;        
+    },1000);
+});
 saveButton.addEventListener("click",saveImformation );
