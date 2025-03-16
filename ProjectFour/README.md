@@ -42,7 +42,7 @@ API키를 저장하기를 누른뒤 뒤로가기를 클릭하고 <br>
 캐릭터 이름을 넣고 찾기를 누르면 해당 캐릭터 정보들이 나온다.<br>
 <h3>하나의 예시이다)</h3>
 
-<img src="./img/afterApiWeb.png" width="800px">
+<img src="./img/afterApiWeb.png" width="1300px">
 
 <br>
 <br>
