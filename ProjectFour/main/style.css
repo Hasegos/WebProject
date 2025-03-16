@@ -58,12 +58,30 @@ button:active{
     transform: scale(0.95);
 }
 
+
+
+
+
+/* 캐릭터 정보 */
 .ApiImformation {
-    display: flex;
-    flex-direction: row;
+    display: flex;    
     gap: 20px;
 }
 
+/* 캐릭터 각인 정보 */
+.engraving {
+    margin-bottom: 10px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    width: 100px;
+}
+    
+.engraving div {
+    margin-bottom: 10px;
+}
+
+/* 즐겨 찾기 내용 */
 .characterList {
     display: flex;
     flex-direction: row;
